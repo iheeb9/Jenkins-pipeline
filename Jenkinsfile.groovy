@@ -3,17 +3,19 @@ node{
 	try{
 	def buildNum = env.BUILD_NUMBER
         def branchName= env.BRANCH_NAME
+		print buildNum
+		print branchName
+		
+	stage('POSTGRESQL - Container run')
+		{
+        	sh "./generator.sh -p"
+        	sh "docker ps -a"         
+		}
 	
-		stage('PremiereEtape'){
-		  sh "echo 'Hello world !! '"
-			print buildNum
-			print branchName	
- 		}
-		stage('DexiemeEtape'){
-		  sh "echo 'Hello world !!'"
-		}
-	    }
+
+	   }
 	finally{
-		cleanWs()
-		}
-	    }
+		sh 'docker rm -f postgres'
+        	cleanWs()
+
+  	}
