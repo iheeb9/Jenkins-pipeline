@@ -12,6 +12,7 @@ node(){
 
 
       stage('Env - run postgres'){
+      sh "chmod +x -R ${env.WORKSPACE}"
       sh "./generator.sh -p"
       sh "docker ps -a"
       
