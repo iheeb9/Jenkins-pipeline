@@ -46,7 +46,7 @@ node(){
      #################################################
         BanchName: $branchName
         CommitID: $commitId
-        AppVersion: $version
+        AppVersion: $extension
         JobNumber: $buildNum
      #################################################
         """
@@ -71,7 +71,7 @@ node(){
 
     stage('DOCKER - Build/Push registry'){
       docker.withRegistry('http://192.168.116.133:5000', 'myregistry_login') {
-         def customImage = docker.build("$imageName:${commitId}")
+         def customImage = cd spring-boot-server && docker.build("$imageName:${extension}-${commitId}")
          customImage.push()
       }
       sh "docker rmi $imageName:${version}-${commitId}"
