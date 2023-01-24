@@ -70,7 +70,7 @@ node(){
     
 
   } finally {
-    sh 'docker rm -f postgres'
+    //sh 'docker rm -f postgres'
     cleanWs()
   }
 }
