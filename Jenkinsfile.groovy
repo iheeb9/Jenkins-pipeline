@@ -10,11 +10,7 @@ node(){
       git "https://github.com/iheeb9/Jenkins-pipeline.git"
     }
 
-    stage('Env - run postgres'){
-      sh "./generator.sh -p"
-      sh "docker ps -a"
-      
-    }
+
 
   } finally {
     sh 'docker rm -f postgres'
