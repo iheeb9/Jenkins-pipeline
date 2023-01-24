@@ -65,6 +65,27 @@ node(){
     
     
     
+     /* Docker - build & push */
+    /* Attention Credentials */
+    def imageName='192.168.116.133:5000/myapp'
+
+    stage('DOCKER - Build/Push registry'){
+      docker.withRegistry('http://192.168.5.5:5000', 'myregistry_login') {
+         def customImage = docker.build("$imageName:${version}-${commitId}")
+         customImage.push()
+      }
+      sh "docker rmi $imageName:${version}-${commitId}"
+    }
+
+    /* Docker - test */
+    stage('DOCKER - check registry'){
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'myregistry_login',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+      sh 'curl -sk --user $USERNAME:$PASSWORD https://192.168.5.5:5000/v2/myapp/tags/list'
+      }
+    }
+
+
+    
     
     
     
