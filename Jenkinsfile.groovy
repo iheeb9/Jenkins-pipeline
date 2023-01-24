@@ -6,9 +6,10 @@ node(){
     print buildNum
     print branchName
 
-    stage('Env - clone generator'){
-    git 'https://github.com/iheeb9/Jenkins-pipeline'
+   stage('SERVICE - Git checkout'){
+      git branch: branchName, url: "http://gitlab.example.com/mypipeline/myapp1.git"
     }
+
 
       stage('Env - run postgres'){
       sh "./generator.sh -p"
