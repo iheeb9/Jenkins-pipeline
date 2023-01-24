@@ -56,10 +56,10 @@ node(){
 //       sh ' cd spring-boot-server && docker run --rm --name maven-${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8 mvn -B clean test'
 //     }
 
-//     /* Maven - build */
-//     stage('SERVICE - Jar'){
-//       sh ' cd spring-boot-server && docker run --rm --name maven${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8  mvn -B clean install'
-//     }
+    /* Maven - build */
+    stage('SERVICE - Jar'){
+      sh ' cd spring-boot-server && docker run --rm --name maven${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8  mvn -B clean install'
+    }
 
 
     
