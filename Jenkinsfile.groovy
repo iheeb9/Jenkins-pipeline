@@ -74,7 +74,7 @@ node(){
          def customImage = cd spring-boot-server && docker.build("$imageName:${extension}-${commitId}")
          customImage.push()
       }
-      sh "docker rmi $imageName:${version}-${commitId}"
+      sh "docker rmi $imageName:${extension}-${commitId}"
     }
 
     /* Docker - test */
