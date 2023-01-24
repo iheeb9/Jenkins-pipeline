@@ -71,7 +71,8 @@ node(){
 
     stage('DOCKER - Build/Push registry'){
       docker.withRegistry('http://192.168.116.133:5000', 'myregistry_login') {
-         def customImage = cd spring-boot-server && docker.build("$imageName:${commitId}")
+          sh' cd spring-boot-server'
+         def customImage = docker.build("$imageName:${commitId}")
          customImage.push()
       }
       sh "docker rmi $imageName:${commitId}"
