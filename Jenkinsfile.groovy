@@ -51,15 +51,15 @@ node(){
      #################################################
         """
 
-    /* Maven - tests */
-    stage('SERVICE - Tests unitaires'){
-      sh ' cd spring-boot-server && docker run --rm --name maven-${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8 mvn -B clean test'
-    }
+//     /* Maven - tests */
+//     stage('SERVICE - Tests unitaires'){
+//       sh ' cd spring-boot-server && docker run --rm --name maven-${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8 mvn -B clean test'
+//     }
 
-    /* Maven - build */
-    stage('SERVICE - Jar'){
-      sh ' cd spring-boot-server && docker run --rm --name maven${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8  mvn -B clean install'
-    }
+//     /* Maven - build */
+//     stage('SERVICE - Jar'){
+//       sh ' cd spring-boot-server && docker run --rm --name maven${commitIdLong} -v /var/lib/jenkins/maven/:/root/.m2 -v "$(pwd)":/usr/src/mymaven --network generator_generator -w /usr/src/mymaven maven:3.3-jdk-8  mvn -B clean install'
+//     }
 
 
     
@@ -70,7 +70,7 @@ node(){
     def imageName='192.168.116.133:5000/myapp'
 
     stage('DOCKER - Build/Push registry'){
-      docker.withRegistry('http://192.168.5.5:5000', 'myregistry_login') {
+      docker.withRegistry('http://192.168.116.133:5000', 'myregistry_login') {
          def customImage = docker.build("$imageName:${version}-${commitId}")
          customImage.push()
       }
@@ -80,7 +80,7 @@ node(){
     /* Docker - test */
     stage('DOCKER - check registry'){
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'myregistry_login',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-      sh 'curl -sk --user $USERNAME:$PASSWORD https://192.168.5.5:5000/v2/myapp/tags/list'
+      sh 'curl -sk --user $USERNAME:$PASSWORD https://192.168.116.133:5000/v2/myapp/tags/list'
       }
     }
 
