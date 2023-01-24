@@ -7,7 +7,7 @@ node(){
     print branchName
 
     stage('Env - clone generator'){
-      git "http://gitlab.example.com/mypipeline/generator.git"
+      git "https://github.com/iheeb9/Jenkins-pipeline.git"
     }
 
     stage('Env - run postgres'){
