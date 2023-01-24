@@ -7,7 +7,7 @@ node(){
     print branchName
 
    stage('SERVICE - Git checkout'){
-      git branch: branchName, url: "http://gitlab.example.com/mypipeline/myapp1.git"
+      git branch: branchName, url: "https://github.com/iheeb9/Jenkins-pipeline.git"
     }
 
 
